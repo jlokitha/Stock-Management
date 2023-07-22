@@ -1,32 +1,149 @@
 import java.util.Scanner;
 
 class UnAndPw {
-    public static String userName = "admin";
-    public static String parssword = "admin";
+    private String userName = "admin";
+    private String parssword = "admin";
+    
+    public UnAndPw() {
+		
+	}
+	
+	public UnAndPw(String userName, String parssword) {
+		this.userName = userName;
+		this.parssword = parssword;
+	}
+	
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+	public String getUserName() {
+		return userName;
+	}
+	
+	public void setParssword(String parssword) {
+		this.parssword = parssword;
+	}
+	public String getParssword() {
+		return parssword;
+	}
 }
 
 class Suppliers {
-    String id;
-    String name;
+    private String id;
+    private String name;
+    
+    public Suppliers() {
+		
+	}
+	
+	public Suppliers(String id, String name) {
+		this.id = id;
+		this.name = name;
+	}
+	
+	public void setId(String id) {
+		this.id = id;
+	}
+	public String getId() {
+		return id;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getName() {
+		return name;
+	}
 }
 
 class Categories {
-    String name;
+    private String name;
+    
+    public Categories() {
+		
+	}
+	
+	public Categories(String name) {
+		this.name = name;
+	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getName() {
+		return name;
+	}
 }
 
 class Items {
-    String sid;
-    String code;
-    String desc;
-    String price;
-    String qty;
-    String cate;
+    private String sid;
+    private String code;
+    private String desc;
+    private String price;
+    private String qty;
+    private String cate;
+    
+    public Items() {
+		
+	}
+	
+	public Items(String sid, String code, String desc, String price, String qty, String cate) {
+		this.sid = sid;
+		this.code = code;
+		this.desc = desc;
+		this.price = price;
+		this.qty = qty;
+		this.cate = cate;
+	}
+	
+	public void setSid(String sid) {
+		this.sid = sid;
+	}
+	public String getSid() {
+		return sid;
+	}
+	
+	public void setCode(String code) {
+		this.code = code;
+	}
+	public String getCode() {
+		return code;
+	}
+	
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
+	public String getDesc() {
+		return desc;
+	}
+	
+	public void setPrice(String price) {
+		this.price = price;
+	}
+	public String getPrice() {
+		return price;
+	}
+	
+	public void setQty(String qty) {
+		this.qty = qty;
+	}
+	public String getQty() {
+		return qty;
+	}
+	
+	public void setCate(String cate) {
+		this.cate = cate;
+	}
+	public String getCate() {
+		return cate;
+	}
 }
 class StockManagement {
-    public static Scanner s = new Scanner(System.in);
-    public static Suppliers[] sList = new Suppliers[0];
-    public static Categories[] cList = new Categories[0];
-    public static Items[][] iList = new Items[0][0];
+    private static Scanner s = new Scanner(System.in);
+    private static UnAndPw u1 = new UnAndPw();
+    private static Suppliers[] sList = new Suppliers[0];
+    private static Categories[] cList = new Categories[0];
+    private static Items[][] iList = new Items[0][0];
 
     public static void main(String[] args) {
 
@@ -40,12 +157,12 @@ class StockManagement {
             System.out.print("Enter your username: ");
             String un = s.next();
 
-            if (un.equals(UnAndPw.userName)) {
+            if (un.equals(u1.getUserName())) {
                 while (true) {
                     System.out.print("\nEnter your password: ");
                     String pw = s.next();
 
-                    if (pw.equals(UnAndPw.parssword)) {
+                    if (pw.equals(u1.getParssword())) {
                         homePage();
                         return;
 
@@ -108,18 +225,18 @@ class StockManagement {
             System.out.print("Please enter the user name to verify it's you: ");
             String un = s.next();
 
-            if (un.equals(UnAndPw.userName)) {
-                System.out.println("\nHey " + UnAndPw.userName);
+            if (un.equals(u1.getUserName())) {
+                System.out.println("\nHey " + u1.getUserName());
 
                 while (true) {
                     System.out.print("\nEnter your current password: ");
                     String pw = s.next();
 
-                    if (pw.equals(UnAndPw.parssword)) {
+                    if (pw.equals(u1.getParssword())) {
                         System.out.print("\nEnter your new password: ");
                         String newPs = s.next();
 
-                        UnAndPw.parssword = newPs;
+                        u1.setParssword(newPs);
                         System.out.print("\nPassword changed successfully! Do you want to go home page (Y/N) : ");
                         String check = s.next();
 
@@ -198,9 +315,9 @@ class StockManagement {
         L1:
         while(true) {
             System.out.print("\nSupplier  ID\t: ");
-            String Id = s.next();
+            String id = s.next();
 
-            if(checkDuplicateId(Id)) {   //Verify that this ID has not been used previously
+            if(checkDuplicateId(id)) {   //Verify that this ID has not been used previously
                 System.out.println("Already exists! try another supplier id.");
                 continue;
             }else{
@@ -208,8 +325,8 @@ class StockManagement {
                 String name = s.next();
 
                 Suppliers temp = new Suppliers();
-                temp.id = Id;
-                temp.name = name;
+                temp.setId(id);
+                temp.setName(name);
 
                 sList[sList.length - 1] = temp;
             }
@@ -246,12 +363,12 @@ class StockManagement {
             supplierIndex = findSupplier(ID);  //Find the index of specific suppliers in an array
 
             if (supplierIndex != -1) {
-                System.out.println("Supplier Name\t: " + sList[supplierIndex].name);
+                System.out.println("Supplier Name\t: " + sList[supplierIndex].getName());
 
                 System.out.print("\nEnter the new supplier name : ");
                 String name = s.next();
 
-                sList[supplierIndex].name = name;
+                sList[supplierIndex].setName(name);
                 System.out.print("\nUpdate Successfully! Do you want to update another supplier (Y/N) ? ");
                 String check = s.next();
 
@@ -322,7 +439,7 @@ class StockManagement {
             System.out.printf("%s\n%c%16S%5c%17S%4c\n%s\n", "+--------------------+--------------------+", '|', "SUPPLIER ID", '|', "SUPPLIER NAME", '|', "+--------------------+--------------------+");
 
             for (int i = 0; i < sList.length; i++) {
-                System.out.printf("%-8c%-13s%-8c%-13s%c\n", '|', sList[i].id, '|', sList[i].name, '|');
+                System.out.printf("%-8c%-13s%-8c%-13s%c\n", '|', sList[i].getId(), '|', sList[i].getName(), '|');
             }
 
             System.out.println("+--------------------+--------------------+");
@@ -377,7 +494,7 @@ class StockManagement {
             supplierIndex = findSupplier(id);  //Find the index of specific suppliers in an array
 
             if (supplierIndex != -1) {
-                System.out.println("Supplier Name\t: " + sList[supplierIndex].name);
+                System.out.println("Supplier Name\t: " + sList[supplierIndex].getName());
 
                 System.out.print("\nDo you want to find another supplier (Y/N) ? ");
                 String check = s.next();
@@ -497,7 +614,7 @@ class StockManagement {
                 System.out.println("Category already exist!\n");
             }else {
                 Categories temp = new Categories();
-                temp.name = type;
+                temp.setName(type);
 
                 cList[cList.length - 1] = temp;
 
@@ -538,7 +655,7 @@ class StockManagement {
                 System.out.print("\nEnter new category name : ");
                 String name = s.next();
 
-                cList[index].name = name;
+                cList[index].setName(name);
 
                 System.out.print("\nUpdate Successfully! Do you want to update another category (Y/N) ? ");
                 String check = s.next();
@@ -704,11 +821,11 @@ class StockManagement {
                     growArrayItem(index);   //Grow array belong to specific category to add item data
 
                     Items temp = new Items();
-                    temp.sid = sList[sIndex - 1].id;
-                    temp.code = code;
-                    temp.desc = description;
-                    temp.price = price;
-                    temp.qty = qty;
+                    temp.setSid(sList[sIndex - 1].getId());
+                    temp.setCode(code);
+                    temp.setDesc(description);
+                    temp.setPrice(price);
+                    temp.setQty(qty);
 
                     iList[index][iList[index].length - 1] = temp;
 
@@ -748,14 +865,14 @@ class StockManagement {
                 index = findSupplier(id);  //Verify the existence of specific suppliers
 
                 if (index != -1) {
-                    System.out.println("\nSupplier name\t\t: " + sList[index].name + "\n\n");
+                    System.out.println("\nSupplier name\t\t: " + sList[index].getName() + "\n\n");
 
                     System.out.printf("%s\n%-6c%-15s%-6c%-15s%-6c%-15s%-6c%-15s%-7c%-14s%c\n%s\n", "+--------------------+--------------------+--------------------+--------------------+--------------------+", '|', "ITEM CODE", '|', "DESCRIPTION", '|', "UNIT PRICE", '|', "QTY ON HAND", '|', "CATEGORY", '|', "+--------------------+--------------------+--------------------+--------------------+--------------------+");
 
                     for (int i = 0; i < iList.length; i++) {
                         for (int j = 0; j < iList[i].length; j++) {
-                            if (iList[i][j] != null && iList[i][j].sid != null && iList[i][j].sid .equals(id)) {
-                                System.out.printf("%-7c%-14s%-6c%-15s%-7c%-14s%-7c%-14s%-7c%-14s%c\n", '|', iList[i][j].code, '|', iList[i][j].desc, '|', iList[i][j].price, '|', iList[i][j].qty, '|', cList[i].name, '|');
+                            if (iList[i][j] != null && iList[i][j].getSid() != null && iList[i][j].getSid() .equals(id)) {
+                                System.out.printf("%-7c%-14s%-6c%-15s%-7c%-14s%-7c%-14s%-7c%-14s%c\n", '|', iList[i][j].getCode(), '|', iList[i][j].getDesc(), '|', iList[i][j].getPrice(), '|', iList[i][j].getQty(), '|', cList[i].getName(), '|');
                             }
                         }
                     }
@@ -809,10 +926,10 @@ class StockManagement {
         if(cList.length != 0) {  //Ensure that categories are added in the system
             for (int i = 0; i < cList.length; i++) {
                 if (iList[i] != null) {  //Ensure that items are added in the categories
-                    System.out.printf("%s%c\n%s\n%-9c%-12s%-9c%-12s%-9c%-12s%-8c%-13s%-9c%-12s%c\n%s\n", cList[i].name, ':', "+--------------------+--------------------+--------------------+--------------------+--------------------+", '|', "SID", '|', "CODE", '|', "DESC", '|', "PRICE", '|', "QTY", '|', "+--------------------+--------------------+--------------------+--------------------+--------------------+");
+                    System.out.printf("%s%c\n%s\n%-9c%-12s%-9c%-12s%-9c%-12s%-8c%-13s%-9c%-12s%c\n%s\n", cList[i].getName(), ':', "+--------------------+--------------------+--------------------+--------------------+--------------------+", '|', "SID", '|', "CODE", '|', "DESC", '|', "PRICE", '|', "QTY", '|', "+--------------------+--------------------+--------------------+--------------------+--------------------+");
 
                     for (int j = 0; j < iList[i].length; j++) {
-                        System.out.printf("%-8c%-13s%-8c%-13s%-7c%-14s%-8c%-13s%-8c%-13s%c\n", '|', iList[i][j].sid, '|', iList[i][j].code, '|', iList[i][j].desc, '|', iList[i][j].price, '|', iList[i][j].qty, '|');
+                        System.out.printf("%-8c%-13s%-8c%-13s%-7c%-14s%-8c%-13s%-8c%-13s%c\n", '|', iList[i][j].getSid(), '|', iList[i][j].getCode(), '|', iList[i][j].getDesc(), '|', iList[i][j].getPrice(), '|', iList[i][j].getQty(), '|');
                     }
                     System.out.println("+--------------------+--------------------+--------------------+--------------------+--------------------+\n");
                 }else{
@@ -871,7 +988,7 @@ class StockManagement {
 
             for (int i = 0; i < sortArr.length; i++) {
 
-                System.out.printf("%-7c%-14S%-7c%-14S%-7c%-14S%-7c%-14S%-7c%-15S%-7c%-14S%c\n", '|', sortArr[i].sid, '|', sortArr[i].code, '|', sortArr[i].desc, '|', sortArr[i].price, '|', sortArr[i].qty, '|', sortArr[i].cate, '|');
+                System.out.printf("%-7c%-14S%-7c%-14S%-7c%-14S%-7c%-14S%-7c%-15S%-7c%-14S%c\n", '|', sortArr[i].getSid(), '|', sortArr[i].getCode(), '|', sortArr[i].getDesc(), '|', sortArr[i].getPrice(), '|', sortArr[i].getQty(), '|', sortArr[i].getCate(), '|');
 
             }
             System.out.println("+--------------------+--------------------+--------------------+--------------------+---------------------+--------------------+\n");
@@ -935,7 +1052,7 @@ class StockManagement {
                 for (int j = 0; j < iList[i].length; j++) {
                     if (iList[i][j] != null) {   //Check item data has been added
                         temp[l] = iList[i][j];
-                        temp[l].cate = cList[i].name;
+                        temp[l].setCate(cList[i].getName());
                         l++;
                     }
                 }
@@ -947,9 +1064,9 @@ class StockManagement {
     public static Items[] sortArray(Items[] ar) {
         for (int i = 0; i < (ar.length - 1); i++) {
             for (int j = 0; j < (ar.length - 1); j++) {
-                if (ar[j] != null && ar[j + 1] != null && ar[j].price != null && ar[j + 1].price != null) {   //Verify that the item data has been updated
-                    double num1 = Double.parseDouble(ar[j].price);
-                    double num2 = Double.parseDouble(ar[j + 1].price);
+                if (ar[j] != null && ar[j + 1] != null && ar[j].getPrice() != null && ar[j + 1].getPrice() != null) {   //Verify that the item data has been updated
+                    double num1 = Double.parseDouble(ar[j].getPrice());
+                    double num2 = Double.parseDouble(ar[j + 1].getPrice());
 
                     if (num1 > num2) {
                         Items x = ar[j + 1];
@@ -988,7 +1105,7 @@ class StockManagement {
         for(int i = 0;i < iList.length;i++){
             if(iList[i] != null){
                 for(int j = 0;j < iList[i].length;j++){
-                    if(iList[i][j].code != null && iList[i][j].code .equals(code)) flag = true;
+                    if(iList[i][j].getCode() != null && iList[i][j].getCode() .equals(code)) flag = true;
                 }
             }
         }
@@ -1001,7 +1118,7 @@ class StockManagement {
         System.out.printf("%s\n%-8c%-8c%-7c%-17S%-6c%-18S%c\n%s\n", "+---------------+-----------------------+-----------------------+", '|', '#', '|', "SUPPLIER ID", '|', "SUPPLIER NAME", '|', "+---------------+-----------------------+-----------------------+");
 
         for(int i = 0;i < sList.length;i++){
-            System.out.printf("%-8c%-8d%-6c%-18S%-6c%-18S%c\n", '|', (i + 1), '|', sList[i].id, '|', sList[i].name, '|');
+            System.out.printf("%-8c%-8d%-6c%-18S%-6c%-18S%c\n", '|', (i + 1), '|', sList[i].getId(), '|', sList[i].getName(), '|');
         }
 
         System.out.println("+---------------+-----------------------+-----------------------+\n");
@@ -1013,7 +1130,7 @@ class StockManagement {
         System.out.printf("%s\n%-8c%-8c%-7c%-17S%c\n%s\n", "+---------------+-----------------------+", '|', '#', '|', "CATEGORY NAME", '|', "+---------------+-----------------------+");
 
         for(int i = 0;i < cList.length;i++){
-            System.out.printf("%-8c%-8d%-6c%-18S%c\n", '|', (i + 1), '|', cList[i].name, '|');
+            System.out.printf("%-8c%-8d%-6c%-18S%c\n", '|', (i + 1), '|', cList[i].getName(), '|');
         }
 
         System.out.println("+---------------+-----------------------+\n");
@@ -1045,7 +1162,7 @@ class StockManagement {
         int index = -1;
 
         for(int i = 0;i < cList.length;i++){
-            if(cList[i] != null && type .equals(cList[i].name))  index = i;
+            if(cList[i] != null && type .equals(cList[i].getName()))  index = i;
         }
         return index;
     }
@@ -1064,7 +1181,7 @@ class StockManagement {
 
         for(int i = 0;i < iList.length;i++){
             for(int j = 0;j < iList[i].length;j++){
-                if(!(iList[i][j].sid) .equals(id)){
+                if(!(iList[i][j].getSid()) .equals(id)){
                     count[i][0] += 1;
                 }
             }
@@ -1078,7 +1195,7 @@ class StockManagement {
         for(int i = 0;i < iList.length;i++){
             for(int j = 0,k = 0;j < iList[i].length;j++){
 
-                if(iList[i][j].sid .equals(id)) continue;
+                if(iList[i][j].getSid() .equals(id)) continue;
 
                 temp[i][k] = iList[i][j];
 
@@ -1104,7 +1221,7 @@ class StockManagement {
         int index = -1;
 
         for (int i = 0;i < sList.length;i++) {
-            if (id  .equals(sList[i].id)) index = i;
+            if (id  .equals(sList[i].getId())) index = i;
         }
         return index;
     }
@@ -1113,7 +1230,7 @@ class StockManagement {
         boolean flag = false;
 
         for (int i = 0;i < sList.length;i++) {
-            if (sList[i] != null && id .equals(sList[i].id)) flag = true;
+            if (sList[i] != null && id .equals(sList[i].getId())) flag = true;
         }
         return flag;
     }
@@ -1153,3 +1270,4 @@ class StockManagement {
         }
     }
 }
+
